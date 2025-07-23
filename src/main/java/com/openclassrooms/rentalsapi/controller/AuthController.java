@@ -63,12 +63,13 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    @Operation(summary = "Inscription utilisateur", description = "Crée un nouveau compte utilisateur")
+   // @Operation(summary = "Inscription utilisateur", description = "Crée un nouveau compte utilisateur")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Inscription réussie"),
             @ApiResponse(responseCode = "400", description = "Données invalides")
     })
-    public String register(@RequestBody RegisterDTO registerDTO) throws ResponseStatusException{
+    public TokenDTO register(@RequestBody RegisterDTO registerDTO) throws ResponseStatusException{
+        TokenDTO token = new TokenDTO();
         String email = registerDTO.getEmail();
         String password = registerDTO.getPassword();
         String name = registerDTO.getName();
@@ -76,7 +77,7 @@ public class AuthController {
         LoginDTO loginDTO = new LoginDTO();
         loginDTO.setEmail(email);
 
-        String token = jwtService.generateToken(loginDTO);
+        token.setToken(jwtService.generateToken(loginDTO));
         return token;
     }
 

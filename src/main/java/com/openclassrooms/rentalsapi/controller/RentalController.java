@@ -35,12 +35,14 @@ public class RentalController {
     @GetMapping("/{id}")
     @Operation(summary = "Rental par ID", description = "Récupère un rental particulier en specifiant son ID")
     @SecurityRequirement(name = "bearerAuth")
-    public Optional<Rental> getRental(@PathVariable Long id) {
-        return rentalService.getRental(id);
+    public RentalDTO getRental(@PathVariable Long id) {
+        return rentalMapper.toDTO(rentalService.getRental(id)
+                .orElseThrow(()->new RuntimeException("Rental not found with id: " + id)));
+
     }
 
     @GetMapping("")
-    @Operation(summary = "Rentals", description = "Récupère tout es rentals préents en base de donnée")
+    @Operation(summary = "Rentals", description = "Récupère tout es rentals présents en base de donnée")
     @SecurityRequirement(name = "bearerAuth")
     public RentalListDTO getAllRentals() {
         RentalListDTO rentals = new RentalListDTO();

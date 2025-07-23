@@ -5,6 +5,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class MessageDTO {
+public class MessageRequestDTO {
     private String message;
+    @JsonProperty("user_id")
+    private int userId;
+    @JsonProperty("rental_id")
+    private int rentalId;
 }

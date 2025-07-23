@@ -1,4 +1,5 @@
 package com.openclassrooms.rentalsapi.DTO;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,7 +14,10 @@ public class RentalDTO {
     private int price;
     private String picture;
     private String description;
+    @JsonProperty("owner_id")
     private long ownerId;
+    @JsonProperty("created_at")
     private LocalDate createdAt;
+    @JsonProperty("updated_at")
     private LocalDate updatedAt;
 }
